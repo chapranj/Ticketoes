@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+
+
+</head>
+
+<body class="bg-gray-100">
+    <%- include("./partials/nav.ejs")%>
+        <div class="container mx-auto px-4 py-8">
+            <div class="bg-white shadow-md rounded-lg p-8">
+                <h2 class="text-3xl font-semibold mb-4">
+                    <%= blog.title %>
+                </h2>
+                <div class="content text-gray-700">
+                    <p>
+                        <%= blog.body %>
+                    </p>
+                </div>
+                <button class="delete mt-4 bg-red-500 text-white font-semibold px-4 py-2 rounded hover:bg-red-600"
+                    data-doc="<%= blog._id%>">Delete</button>
+            </div>
+        </div>
+        <%- include("./partials/footer.ejs") %>
+
+            <script>
+                const trashcan = document.querySelector('button.delete');
+                trashcan.addEventListener('click', (e) => {
+                    const endPoint = `/blogs/${trashcan.dataset.doc}`
+
+                    fetch(endPoint, {
+                        method: 'DELETE'
+                    })
+                        .then(
+                            (response) => {
+                                response.json()
+                                    .then(
+                                        (data) => {
+                                            window.location.href = data.redirect;
+                                        }
+                                    )
+                            }
+                        )
+                        .catch(
+                            (error) => {
+                                console.log(error);
+                            }
+                        )
+                })
+            </script>
+</body>
+
+</html>
