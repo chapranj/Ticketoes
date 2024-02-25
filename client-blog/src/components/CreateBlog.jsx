@@ -1,6 +1,8 @@
 import React, { useState } from "react"
 import axios from "axios";
 import { Formik, Form, Field } from "formik";
+import { useNavigate } from "react-router-dom";
+
 
 export default function CreateBlog() {
 
@@ -8,8 +10,9 @@ export default function CreateBlog() {
     const [snippet, setSnippet] = useState('');
     const [title, setTitle] = useState('');
     const [body, setBody] = useState('');
+    const navigate = useNavigate();
 
-    function formSubmit(values) {
+    async function formSubmit(values) {
         const newBlog = {
             title: values.title,
             snippet: values.snippet,
@@ -17,17 +20,16 @@ export default function CreateBlog() {
         }
         console.log(newBlog)
         try {
-            const response = axios.post(`http://localhost:3000/blogs`, newBlog);
+            const response = await axios.post(`http://localhost:3000/blogs`, newBlog);
             if(response){
                 console.log(response.data)
             }
+            navigate('/');
 
         }
         catch{
             console.log("Error!");
         }
-
-
 
     }
 

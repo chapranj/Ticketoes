@@ -2,6 +2,7 @@ const express = require('express');
 const cors = require('cors');
 const morgan = require('morgan');
 const mongoose = require('mongoose');
+const bodyParser = require('body-parser');
 
 const blogRoutes = require('./routes/blogRoutes.js')
 
@@ -11,6 +12,7 @@ const corsOptions = {
 }
 
 app.use(cors(corsOptions))
+app.use(bodyParser.json());
 
 const dbURI = 'mongodb+srv://test1212:test1212@cluster0.tzrxohd.mongodb.net/node-tuts?retryWrites=true&w=majority&appName=Cluster0'
 mongoose.connect(dbURI)

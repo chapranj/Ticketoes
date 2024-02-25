@@ -15,6 +15,13 @@ const blog_index = (req, res) => {
 }
 
 const blogPost = (req, res) => {
+    console.log(req.body)
+    const {title, snippet, body } = req.body;
+
+    if(!title || !snippet || !body){
+        return res.status(400).json({error: "Missing required fields!"})
+    }
+    
     const blog = new BlogObj(req.body);
     blog.save()
         .then(
