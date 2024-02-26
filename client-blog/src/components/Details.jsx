@@ -55,6 +55,11 @@ export default function Details() {
                         </h2>
                         <div className="content text-gray-700">
                             <p>
+                                <img src={blog.snippet} alt="" />
+                            </p>
+                        </div>
+                        <div className="content text-gray-700">
+                            <p>
                                 {blog.body}
                             </p>
                         </div>

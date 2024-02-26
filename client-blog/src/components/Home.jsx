@@ -40,7 +40,8 @@ export default function Home() {
                     <div key={blog._id} className="bg-white p-4 rounded-lg shadow">
                         <Link to={`/blog/${blog._id}`} className='block'>
                             <h3 className="text-xl font-semibold mb-2">{blog.title}</h3>
-                            <p className="text-gray-600">{blog.snippet}</p>
+
+                            <img src={blog.snippet} alt="" width="400"/>
                         </Link>
                     </div>
                 ))}
