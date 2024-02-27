@@ -29,21 +29,18 @@ export default function CreateBlog() {
         console.log("Error!");
       }
     }
-    // onSubmit:(values)=>{
-    //     console.log(values)
-    // }
   });
 
   return (
-    <div className="container">
+    <div className="container mx-auto m-5">
       <h1 className="text-3xl font-semibold mb-4">Enter Blog Details</h1>
       <form onSubmit={formik.handleSubmit} encType="multipart/form-data">
-        <fieldset className="mb-4">
-          <label htmlFor="title" className="block text-sm font-medium text-gray-700">Title</label>
-          <input id="title" {...formik.getFieldProps('title')} type="text" className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" />
-        </fieldset>
-        <fieldset className="mb-4">
-          <label htmlFor="snippet" className="block text-sm font-medium text-gray-700">Snippet</label>
+        <div className="mb-4">
+          <label htmlFor="title" className="block text-sm font-medium text-gray-700 mb-2">Title</label>
+          <input id="title" {...formik.getFieldProps('title')} type="text" className="form-input" />
+        </div>
+        <div className="mb-4">
+          <label htmlFor="snippet" className="block text-sm font-medium text-gray-700 mb-2">Snippet</label>
           <input
             id="snippet"
             name="snippet"
@@ -58,18 +55,17 @@ export default function CreateBlog() {
               }
               reader.readAsDataURL(e.target.files[0])
             }}
-            className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
+            className="form-input"
           />
-        </fieldset>
-        <fieldset className="mb-4">
-          <label htmlFor="body" className="block text-sm font-medium text-gray-700">Body</label>
-          <textarea id="body" {...formik.getFieldProps('body')} rows="3" className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" />
-        </fieldset>
-        <div>
-          <img src={preview} width="200" />
-          <button type="submit" className="inline-flex items-center px-4 py-2 border border-transparent text-base leading-6 font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-500 focus:outline-none focus:border-indigo-700 focus:shadow-outline-indigo active:bg-indigo-700 transition ease-in-out duration-150">
-            Submit
-          </button>
+        </div>
+        {preview && <img src={preview} width="100" height="30" className="mr-4" />}
+        <div className="mb-4">
+          <label htmlFor="body" className="block text-sm font-medium text-gray-700 mb-2">Body</label>
+          <textarea id="body" {...formik.getFieldProps('body')} rows="6" className="form-textarea"></textarea>
+        </div>
+        <div className="mb-4 flex items-center">
+          
+          <button type="submit" className="px-4 py-2 bg-indigo-600 text-white rounded hover:bg-indigo-500 focus:outline-none focus:bg-indigo-700 transition duration-300 ease-in-out">Submit</button>
         </div>
       </form>
     </div>
