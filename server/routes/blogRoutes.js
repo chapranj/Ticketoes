@@ -3,6 +3,7 @@ const router = express.Router();
 const blogController = require('../controllers/blogController')
 const multer = require('multer')
 const path = require('path')
+const requireAuth = require('../middleware/requireAuth')
 
 const storage = multer.diskStorage(
     {
@@ -18,6 +19,8 @@ const storage = multer.diskStorage(
 const upload = multer({
     storage: storage
 })
+
+// router.use(requireAuth)
 
 router.get('/blogs', blogController.blog_index );
 router.post('/blogs', upload.single('snippet') , blogController.blogPost );

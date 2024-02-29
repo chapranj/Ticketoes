@@ -3,10 +3,12 @@ const cors = require('cors');
 const morgan = require('morgan');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
+require('dotenv').config();
 
 
 
-const blogRoutes = require('./routes/blogRoutes.js')
+const blogRoutes = require('./routes/blogRoutes.js');
+const userRoutes = require('./routes/user.js');
 
 const app = express();
 const corsOptions = {
@@ -15,8 +17,6 @@ const corsOptions = {
 
 app.use(cors(corsOptions))
 app.use(bodyParser.json());
-
-
 
 const dbURI = 'mongodb+srv://test1212:test1212@cluster0.tzrxohd.mongodb.net/node-tuts?retryWrites=true&w=majority&appName=Cluster0'
 mongoose.connect(dbURI)
@@ -37,25 +37,8 @@ app.use(express.urlencoded({ extended: true }));
 
 app.use(morgan('dev'));
 
-app.get('/', (req, res) => {
-    res.redirect('/blogs');
-});
-
-app.get('/about', (req, res) => {
-    res.render('about', { title: 'About' });
-});
-
-app.get('/aboutme',
-    (req, res) => {
-        res.redirect('/about');
-    }
-)
-
-app.get('/create/new', (req, res) => {
-    res.render('create', { title: 'Create a new Blog' });
-})
 app.use(blogRoutes);
-
+app.use('/user',userRoutes);
 
 app.use(
     (req, res) => {

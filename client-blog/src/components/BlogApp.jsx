@@ -6,20 +6,10 @@ import Footer from './Footer'
 import CreateBlog from './CreateBlog'
 import Details from './Details'
 import AuthProvider, { useAuth } from './security/AuthContext'
+import Login from './Login'
+import Signup from './Signup'
 import { Navigate } from 'react-router-dom'
 import LoginComponent from './LoginComponent'
-
-
-function AuthenticatedRoute({ children }) {
-    const auth = useAuth();
-    if (auth.isAuthenticated) {
-        return (
-            children
-        )
-    }
-    return <Navigate to="/"></Navigate>
-}
-
 
 export default function BlogApp() {
     return (
@@ -28,24 +18,14 @@ export default function BlogApp() {
                 <BrowserRouter>
                     <Navbar></Navbar>
                     <Routes>
-                        <Route path='/' element={<LoginComponent></LoginComponent>} ></Route>
-                        <Route path='/blogs' element={
-                            <AuthenticatedRoute>
-                                <Home></Home>
-                            </AuthenticatedRoute>
-
-                        }></Route>
-                        <Route path='/blog/new' element=
-                            {<AuthenticatedRoute>
-                                <CreateBlog></CreateBlog>
-                            </AuthenticatedRoute>} > </Route>
-                        <Route path='/blog/:blogId' element={
-                            <AuthenticatedRoute>
-                                <Details></Details>
-                            </AuthenticatedRoute>}></Route>
+                        <Route path='/blogs' element={<Home></Home>}></Route>
+                        <Route path='/login' element={<Login />} />
+                        <Route path='/signup' element={<Signup />} />
+                        <Route path='/blog/new' element={<CreateBlog></CreateBlog>} />
+                        <Route path='/blog/:blogId' element={<Details></Details>}></Route>
                     </Routes>
                     <Footer></Footer>
-                </BrowserRouter>``
+                </BrowserRouter>
             </AuthProvider>
         </div>
     )
