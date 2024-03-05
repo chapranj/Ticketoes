@@ -1,10 +1,17 @@
-import logo from './logo.svg';
+
 import './App.css';
+import React from 'react'
 import BlogApp from './components/BlogApp';
 
+
+
 function App() {
-  return (
-    <BlogApp></BlogApp>
+
+
+    return (
+        <div>
+          <BlogApp></BlogApp>
+        </div>
   );
 }
 

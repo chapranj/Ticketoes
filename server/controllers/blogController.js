@@ -37,7 +37,6 @@ const getTicketPost = (req, res) => {
     TicketPostObj.find({ ticketId: req.params.id }).sort({ createdAt: -1 })
         .then(
             (response) => {
-                console.log("??????????????????????????????????????????????????????????????????????????????????????????")
                 console.log(req)
                 console.log(response)
                 res.send(response);
@@ -84,7 +83,6 @@ const blogPost = (req, res) => {
             (err) => {
                 console.log(err)
             }
-
         )
 }
 
@@ -102,19 +100,20 @@ const getBlogById = (req, res) => {
             }
         )
 }
-const deleteBlogById = (req, res) => {
+
+ const deleteBlogById = async (req, res) => {
     const id = req.params.id;
-    BlogObj.findByIdAndDelete(id)
-        .then(
-            (response) => {
-                res.json({ redirect: '/blogs' })
-            }
-        )
-        .catch(
-            (error) => {
-                console.log(error);
-            }
-        )
+    try{
+        await BlogObj.findByIdAndDelete(id);
+
+        await TicketPostObj.deleteMany({ticketId: id});
+
+        res.status(200).json({success: true, message: 'Blog and associated ticket posts deleted successfully! '});
+    }
+    catch(error){
+        console.log(error)
+        res.status(500).json({error: 'Internal server error!'})
+    }
 }
 
 module.exports = {

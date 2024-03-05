@@ -14,21 +14,27 @@ export default function Details() {
     const [blog, setBlog] = useState(null);
     const [errorMsg, setErrorMsg] = useState('')
     const [message, setMessage] = useState('');
+    const { user } = useAuth();
     const [ticketPosts, setTicketPosts] = useState([]);
 
-    const auth = useAuth();
 
 
     useEffect(
         () => {
+
             loadBlog(blogId);
             loadTicketPosts(blogId);
+
         }, [blogId]
     );
 
     async function loadTicketPosts(id) {
         try {
-            const response = await axios.get(`http://localhost:3000/blogs/ticketPosts/${id}`)
+            const response = await axios.get(`http://localhost:3000/blogs/ticketPosts/${id}`, {
+                headers: {
+                    'Authorization': `Bearer ${user.token}`
+                }
+            })
             console.log("hi");
             console.log(response.data);
             setTicketPosts(response.data);
@@ -40,7 +46,11 @@ export default function Details() {
 
     async function loadBlog(id) {
         try {
-            const response = await axios.get(`http://localhost:3000/blogs/${id}`)
+            const response = await axios.get(`http://localhost:3000/blogs/${id}`, {
+                headers: {
+                    'Authorization': `Bearer ${user.token}`
+                }
+            })
             if (response.data) {
                 setBlog(response.data);
             }
@@ -55,7 +65,11 @@ export default function Details() {
 
     async function handleDelete(id) {
         try {
-            await axios.delete(`http://localhost:3000/blogs/${id}`)
+            await axios.delete(`http://localhost:3000/blogs/${id}`, {
+                headers: {
+                    'Authorization': `Bearer ${user.token}`
+                }
+            })
             navigate('/');
         }
         catch {
@@ -65,7 +79,11 @@ export default function Details() {
 
     async function handleSubmitMessage() {
         try {
-            const response = await axios.post(`http://localhost:3000/blog/ticketPost`, { ticketId: blogId, content: message });
+            const response = await axios.post(`http://localhost:3000/blogs/ticketPost`, { ticketId: blogId, content: message } , {
+                headers : {
+                    'Authorization': `Bearer ${user.token}`
+                }
+            })
             if (response.data) {
                 console.log("POsting")
                 console.log(response.data);
@@ -85,7 +103,11 @@ export default function Details() {
 
     async function handleDeletePost(id) {
         try {
-            await axios.delete(`http://localhost:3000/blogs/ticketPost/${id}`)
+            await axios.delete(`http://localhost:3000/blogs/ticketPost/${id}`, {
+                headers : {
+                    'Authorization': `Bearer ${user.token}`
+                }
+            })
             loadTicketPosts(blogId);
         }
         catch {
@@ -124,7 +146,7 @@ export default function Details() {
                             <li key={post._id} className="mb-4">
                                 <div className="message">
                                     <p className="text-gray-700">{post.content}</p>
-                                    <p className="text-sm text-gray-500">Created at: {new Date(post.createdAt).toLocaleString()} Posted By:{auth.username}</p>
+                                    <p className="text-sm text-gray-500">Created at: {new Date(post.createdAt).toLocaleString()} Posted By:{user.email}</p>
                                     <button className="delete mt-2.5 bg-red-200 text-white font-semibold px-4 py-2 rounded hover:bg-red-600" onClick={() => handleDeletePost(post._id)}>Delete</button>
                                 </div>
                             </li>

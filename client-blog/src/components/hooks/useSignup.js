@@ -1,12 +1,10 @@
 import { useState } from "react";
-import useAuthContext from "./useAuthContext";
 import { useAuth } from "../security/AuthContext";
 
 export const useSignup = ()=>{
     const [error, setError] = useState(null);
     const [isLoading, setIsLoading] = useState(null);
     const {dispatch} = useAuth();
-
 
     const signup = async (email, password)=>{
         setIsLoading(true);
@@ -17,7 +15,7 @@ export const useSignup = ()=>{
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify({email,password})
         })
-   
+
         //email and token is received here in JSON format 
         const json = await response.json();
 

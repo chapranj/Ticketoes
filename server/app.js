@@ -30,13 +30,9 @@ mongoose.connect(dbURI)
         (err) => console.log(err)
     );
 app.set('view engine', 'ejs');
-
 app.use(express.static('styles'));
-
 app.use(express.urlencoded({ extended: true }));
-
 app.use(morgan('dev'));
-
 app.use(blogRoutes);
 app.use('/user',userRoutes);
 

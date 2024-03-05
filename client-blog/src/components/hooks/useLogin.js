@@ -1,10 +1,12 @@
 import { useState } from "react";
 import { useAuth } from "../security/AuthContext";
 
+
 export const useLogin = () => {
     const [error, setError] = useState(null);
     const [isLoading, setIsLoading] = useState(null);
     const { dispatch } = useAuth();
+
 
     const login = async (email, password) => {
         setIsLoading(true);
@@ -24,7 +26,6 @@ export const useLogin = () => {
             setError(json.error);
         }
 
-
         if (response.ok) {
             console.log("loggedin")
             console.log(json)
@@ -33,11 +34,6 @@ export const useLogin = () => {
             dispatch({ type: 'LOGIN', payload: json })
             setIsLoading(false);
         }
-
-
     }
-
     return { login, isLoading, error };
-
-
 }

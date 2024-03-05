@@ -1,10 +1,27 @@
-import { useState } from "react";
-import {useLogin} from "./hooks/useLogin";
+import { useEffect, useState } from "react";
+import { useLogin } from "./hooks/useLogin";
+import { useAuth } from "./security/AuthContext";
+import { useNavigate } from "react-router-dom";
 
 export default function Login() {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const { login, isLoading, error } = useLogin();
+    const { user } = useAuth()
+
+    const navigate = useNavigate();
+
+    useEffect(()=>{
+        if(user){
+            console.log("YESS")
+            navigate('/')
+        }
+        else{
+            console.log("NOO!")
+        }
+    })
+
+    console.log("user in Login Component: " + user);
 
     const handleSubmit = async (e) => {
         e.preventDefault();

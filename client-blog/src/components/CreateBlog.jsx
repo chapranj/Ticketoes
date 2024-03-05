@@ -2,10 +2,14 @@ import React, { useState } from "react";
 import axios from "axios";
 import { useFormik } from "formik";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "./security/AuthContext";
 
 export default function CreateBlog() {
   const [preview, setPreview] = useState('');
   const navigate = useNavigate();
+  const {user} = useAuth();
+  
+
 
   const formik = useFormik({
     initialValues: {
@@ -18,9 +22,12 @@ export default function CreateBlog() {
       formData.append("title", values.title);
       formData.append("body", values.body);
       formData.append("snippet", values.snippet);
-      console.log(formData);
       try {
-        const response = await axios.post(`http://localhost:3000/blogs`, formData);
+        const response = await axios.post(`http://localhost:3000/blogs`, formData, {
+          headers: {
+            'Authorization': `Bearer ${user.token}`
+          }
+        });
         if (response) {
           console.log(response.data)
         }
@@ -33,7 +40,7 @@ export default function CreateBlog() {
 
   return (
     <div className="container mx-auto m-5">
-      <h1 className="text-3xl font-semibold mb-4">Enter Blog Details</h1>
+      <h1 className="text-3xl font-semibold mb-4">Enter Ticket Details</h1>
       <form onSubmit={formik.handleSubmit} encType="multipart/form-data">
         <div className="mb-4">
           <label htmlFor="title" className="block text-sm font-medium text-gray-700 mb-2">Title</label>
