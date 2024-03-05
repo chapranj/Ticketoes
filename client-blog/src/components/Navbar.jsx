@@ -23,8 +23,8 @@ export default function Navbar() {
                 <div className="flex space-x-4">
                     {!user && (
                         <div className="login">
-                        <Link to="/login" className="text-white hover:text-gray-300">Login</Link>
-                        <Link to="/signup" className="text-white hover:text-gray-300">Signup</Link>
+                        <Link to="/login" className="text-white hover:text-gray-300 m-5">Login</Link>
+                        <Link to="/signup" className="text-white hover:text-gray-300 m-5">Signup</Link>
                     </div>
                     )}
                     {user && (

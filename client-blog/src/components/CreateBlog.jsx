@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useFormik } from "formik";
 import { useNavigate } from "react-router-dom";
@@ -8,6 +8,12 @@ export default function CreateBlog() {
   const [preview, setPreview] = useState('');
   const navigate = useNavigate();
   const {user} = useAuth();
+
+  useEffect(()=>{
+    if(!user){
+      navigate('/login')
+    }
+  },[user])
   
 
 
