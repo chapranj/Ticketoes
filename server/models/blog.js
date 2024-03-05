@@ -27,6 +27,10 @@ const ticketPostSchema = new Schema ({
         type: String,
         required: true
     },
+    postedBy:{
+        type:String,
+        required:true
+    }
 
 },{timestamps:true});
 //

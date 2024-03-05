@@ -17,8 +17,6 @@ export default function Details() {
     const { user } = useAuth();
     const [ticketPosts, setTicketPosts] = useState([]);
 
-
-
     useEffect(
         () => {
 
@@ -79,7 +77,7 @@ export default function Details() {
 
     async function handleSubmitMessage() {
         try {
-            const response = await axios.post(`http://localhost:3000/blogs/ticketPost`, { ticketId: blogId, content: message } , {
+            const response = await axios.post(`http://localhost:3000/blogs/ticketPost`, { ticketId: blogId, content: message , postedBy: user.email} , {
                 headers : {
                     'Authorization': `Bearer ${user.token}`
                 }
@@ -146,7 +144,7 @@ export default function Details() {
                             <li key={post._id} className="mb-4">
                                 <div className="message">
                                     <p className="text-gray-700">{post.content}</p>
-                                    <p className="text-sm text-gray-500">Created at: {new Date(post.createdAt).toLocaleString()} Posted By:{user.email}</p>
+                                    <p className="text-sm text-gray-500">Created at: {new Date(post.createdAt).toLocaleString()} Posted By:{post.postedBy}</p>
                                     <button className="delete mt-2.5 bg-red-200 text-white font-semibold px-4 py-2 rounded hover:bg-red-600" onClick={() => handleDeletePost(post._id)}>Delete</button>
                                 </div>
                             </li>

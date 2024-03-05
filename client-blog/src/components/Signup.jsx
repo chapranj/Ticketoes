@@ -1,14 +1,25 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useSignup } from "./hooks/useSignup";
+import { useAuth } from "./security/AuthContext";
+import { useNavigate } from "react-router-dom";
 export default function Signup() {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const { signup, error, isLoading } = useSignup()
+    const navigate = useNavigate();
+
+    const {user} = useAuth();
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         await signup(email, password);
     }
+
+    useEffect(()=>{
+        if(user){
+            navigate('/')
+        }
+    })
 
     return (
         <div className="flex justify-center items-center h-screen bg-gray-200">

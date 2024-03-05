@@ -23,9 +23,9 @@ export default function Navbar() {
                 <div className="flex space-x-4">
                     {!user && (
                         <div className="login">
-                        <Link to="/login" className="text-white hover:text-gray-300 m-5">Login</Link>
-                        <Link to="/signup" className="text-white hover:text-gray-300 m-5">Signup</Link>
-                    </div>
+                            <Link to="/login" className="text-white hover:text-gray-300 m-5">Login</Link>
+                            <Link to="/signup" className="text-white hover:text-gray-300 m-5">Signup</Link>
+                        </div>
                     )}
                     {user && (
                         <div className="logout">
@@ -33,7 +33,6 @@ export default function Navbar() {
                             <button onClick={handleClick} className="text-white hover:text-gray-300">Logout</button>
                         </div>
                     )}
-
                 </div>
             </div>
         </nav>

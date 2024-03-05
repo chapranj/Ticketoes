@@ -21,7 +21,6 @@ export default function Home() {
             else {
                 refreshBlogs();
             }
-
         }, []
     );
 
@@ -53,15 +52,16 @@ export default function Home() {
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                 {blogs.map(blog => (
                     <div key={blog._id} className="bg-white p-4 rounded-lg shadow">
-                        <Link to={`/blog/${blog._id}`} className='block'>
+                        <Link to={`/blog/${blog._id}`} className="block">
                             <h3 className="text-xl font-semibold mb-2">{blog.title}</h3>
-                            <img src={blog.snippet} alt="" width="400" />
+                            <img src={blog.snippet} alt="" className="w-full h-auto" />
                         </Link>
                     </div>
                 ))}
             </div>
         </div>
     );
+    
 };
 
 
