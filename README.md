@@ -26,8 +26,8 @@ Ticketoes is a ticketing system built using the MERN (MongoDB, Express.js, React
    - Frontend: `cd client-blog && npm install`
 4. **Configure Environment Variables**: Set up environment variables such as MongoDB URI and JWT secret key.
 5. **Run the Application**:
-   - Backend: `cd backend && npm start`
-   - Frontend: `cd frontend && npm start`
+   - Backend: `cd server && nodemon app`
+   - Frontend: `cd client-blog && npm start`
 
 ## Usage
 1. **User Authentication**:
